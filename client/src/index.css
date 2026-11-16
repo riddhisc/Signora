@@ -7,3 +7,104 @@
 body {
   font-family: 'Roboto', sans-serif;
 }
+
+@keyframes auth-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes auth-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(7px, 8px, 0);
+  }
+}
+
+@keyframes auth-orbit {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate3d(8px, -5px, 0);
+  }
+  50% {
+    transform: translate3d(0, -9px, 0);
+  }
+  75% {
+    transform: translate3d(-8px, -4px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes auth-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes auth-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes auth-dash {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.auth-motion-float {
+  animation: auth-float 5.6s ease-in-out infinite;
+}
+
+.auth-motion-drift {
+  animation: auth-drift 6.8s ease-in-out infinite;
+}
+
+.auth-motion-orbit {
+  animation: auth-orbit 7.2s ease-in-out infinite;
+}
+
+.auth-motion-pulse {
+  animation: auth-pulse 3.8s ease-in-out infinite;
+}
+
+.auth-motion-spin {
+  animation: auth-spin 16s linear infinite;
+}
+
+.auth-link {
+  stroke: #d5dce6;
+  stroke-width: 0.35;
+  stroke-dasharray: 1.6 1.5;
+  animation: auth-dash 9s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-motion-float,
+  .auth-motion-drift,
+  .auth-motion-orbit,
+  .auth-motion-pulse,
+  .auth-motion-spin,
+  .auth-link {
+    animation: none;
+  }
+}

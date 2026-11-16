@@ -1,18 +1,18 @@
 // src/pages/Register.jsx
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { 
-  Container, 
-  Paper, 
-  TextField, 
-  Button, 
-  Typography, 
-  Box,
-  Alert 
-} from '@mui/material';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Button, Box, Link } from '@mui/material';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import AuthScreen, {
+  AuthField,
+  AuthPasswordField,
+  AuthError,
+  authButtonSx,
+  authFormSx,
+  authFooterLinkSx,
+} from '../components/AuthScreen';
 
 // Create register thunk
 export const registerUser = createAsyncThunk(
@@ -27,15 +27,22 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+const errorText = (error) => {
+  if (!error) return '';
+  if (typeof error === 'string') return error;
+  if (typeof error.message === 'string') return error.message;
+  return 'Could not create the account.';
+};
+
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, error } = useSelector((state) => state.auth);
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    
+
     const userData = {
       name: formData.get('name'),
       email: formData.get('email'),
@@ -52,84 +59,58 @@ const Register = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ mt: 8, mb: 4 }}>
-        <Paper elevation={3} sx={{ p: 4 }}>
-          <Typography variant="h4" component="h1" gutterBottom align="center">
-            Register
-          </Typography>
-          
-          {error && (
-            <Alert severity="error" sx={{ mb: 2 }}>
-              {error}
-            </Alert>
-          )}
+    <AuthScreen
+      title="Create account"
+      description="Enter your details to get started."
+      footer={
+        <>
+          Already have an account?{' '}
+          <Link component={RouterLink} to="/login" underline="hover" sx={authFooterLinkSx}>
+            Sign in
+          </Link>
+        </>
+      }
+    >
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={authFormSx}
+      >
+        <AuthError>{errorText(error)}</AuthError>
 
-          <form onSubmit={handleSubmit}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="name"
-              label="Full Name"
-              name="name"
-              autoComplete="name"
-              autoFocus
-            />
-            
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              type="email"
-            />
-            
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="new-password"
-            />
-            
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              id="confirmPassword"
-            />
-            
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              disabled={isLoading}
-            >
-              {isLoading ? 'Registering...' : 'Register'}
-            </Button>
-            
-            <Button
-              fullWidth
-              variant="text"
-              onClick={() => navigate('/login')}
-            >
-              Already have an account? Login
-            </Button>
-          </form>
-        </Paper>
+        <AuthField
+          id="name"
+          label="Full Name"
+          name="name"
+          autoComplete="name"
+          autoFocus
+        />
+        <AuthField
+          id="email"
+          label="Email Address"
+          name="email"
+          type="email"
+          autoComplete="email"
+          placeholder="name@email.com"
+        />
+        <AuthPasswordField
+          id="password"
+          label="Password"
+          name="password"
+          autoComplete="new-password"
+        />
+        <AuthPasswordField
+          id="confirmPassword"
+          label="Confirm Password"
+          name="confirmPassword"
+          autoComplete="new-password"
+        />
+
+        <Button type="submit" fullWidth variant="contained" sx={authButtonSx} disabled={isLoading}>
+          {isLoading ? 'Registering...' : 'Register'}
+        </Button>
       </Box>
-    </Container>
+    </AuthScreen>
   );
 };
 
