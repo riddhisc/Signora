@@ -1,12 +1,8 @@
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
-import Dashboard from './pages/Dashboard';
-import Jobs from './pages/Jobs';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import theme from './theme.jsx';
@@ -18,17 +14,10 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
+            <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route
-              path="/dashboard"
-              element={
-                <PrivateRoute>
-                  <Dashboard />
-                </PrivateRoute>
-              }
-            />
-            <Route path="/jobs" element={<Jobs />} />
+            <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
