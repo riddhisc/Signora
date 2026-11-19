@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { Box, Button, Link } from '@mui/material';
-import  loginUser  from '../features/authSlice';
 import AuthScreen, {
   AuthField,
   AuthPasswordField,
@@ -12,20 +10,15 @@ import AuthScreen, {
 } from '../components/AuthScreen';
 
 const Login = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [remember, setRemember] = useState(true);
+  const [feedback, setFeedback] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const userData = {
-      email: formData.get('email'),
-      password: formData.get('password'),
-    };
-    dispatch(loginUser(userData))
-      .unwrap()
-      .then(() => navigate('/dashboard'));
+    const email = formData.get('email');
+    const password = formData.get('password');
+    setFeedback(email && password ? 'This is a frontend demo; no login request was sent.' : 'Enter your email and password.');
   };
 
   return (
@@ -116,6 +109,7 @@ const Login = () => {
         <Button fullWidth variant="contained" type="submit" sx={authButtonSx}>
           Sign in
         </Button>
+        {feedback && <Box sx={{ fontSize: 13, color: '#3A3C44' }}>{feedback}</Box>}
       </Box>
     </AuthScreen>
   );
