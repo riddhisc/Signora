@@ -4,7 +4,7 @@ A modern, responsive Login and Registration interface built with React and Vite.
 
 ## Live Demo
 
-[Open the GitHub Pages demo](https://riddhisc.github.io/Project3/)
+[Open the GitHub Pages demo](https://riddhisc.github.io/Signora/)
 
 ## Features
 
@@ -30,8 +30,8 @@ A modern, responsive Login and Registration interface built with React and Vite.
 Clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/riddhisc/Project3.git
-cd Project3
+git clone https://github.com/riddhisc/Signora.git
+cd Signora
 npm install
 ```
 
