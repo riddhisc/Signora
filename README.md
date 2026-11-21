@@ -5,6 +5,8 @@ A modern, responsive Login and Registration interface built with React and Vite.
 ## Live Demo
 
 [Open the GitHub Pages demo](https://riddhisc.github.io/Signora/)
+<img width="1917" height="897" alt="image" src="https://github.com/user-attachments/assets/87e2baca-f96e-43b6-a488-5988cdede2d2" />
+
 
 ## Features
 
